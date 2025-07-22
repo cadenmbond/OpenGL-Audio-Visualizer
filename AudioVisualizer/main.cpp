@@ -11,7 +11,7 @@
 #include "Square.h"
 
 #include <iostream>
-#include <String>
+#include <string>
 #include <cstdint>
 #include <vector>
 #include <cstdlib>
@@ -19,22 +19,40 @@
 
 #include <GLFW/glfw3.h>
 
-const int buttonHeight{ 30 };
-const int buttonWidth{ 100 };
+constexpr int windowWidth{ 1080 };
+constexpr int windowHeight{ 800 };
 
-const int windowHeight{ 800 };
-const int windowWidth{ 1080 };
+constexpr int buttonWidth{ 100 };
+constexpr int buttonHeight{ 30 };
+
+constexpr int fileExtensionLength{ 4 };
+
+constexpr int minAmplitudeThreshold{ 23000 };
+constexpr int maxAmplitudeThreshold{ 41000 };
+unsigned int sampleRate;
+unsigned int channelCount;
+int amplitudeThreshold{ 35000 };
 
 float currentTime;
 
-unsigned int sampleRate;
-unsigned int channelCount;
+struct GL_COLORS {
+    static constexpr glm::vec3 Blue{ 0.0f, 0.0f, 1.0f };
+    static constexpr glm::vec3 Yellow{ 1.0f, 1.0f, 0.0f };
+    static constexpr glm::vec3 Red{ 1.0f, 0.0f, 0.0f };
+    static constexpr glm::vec3 Orange{ 1.0f, 0.5f, 0.0f };
+    static constexpr glm::vec3 Green{ 0.0f, 1.0f, 0.0f };
+};
 
-int positiveSampleCount = 0;
-int negativeSampleCount = 0;
+struct GL_ORTHO {
+    static constexpr GLdouble left{ 0.0 };
+    static constexpr GLdouble right{ windowWidth };
+    static constexpr GLdouble bottom{ windowHeight };
+    static constexpr GLdouble top{ 0.0 };
+    static constexpr GLdouble zNear{ -1.0 };
+    static constexpr GLdouble zFar{ 1.0 };
+};
 
-int amplitudeThreshold = 35000;
-
+constexpr int squareRandomPosOffset{ 50 };
 std::vector<Square> Squares;
 
 int main(void)
@@ -45,7 +63,7 @@ int main(void)
     sf::Sound Music(SoundBuffer);
     std::string SongName;
 
-    size_t prevSampleIndex = 0;
+    size_t prevSampleIndex{ 0 };
 
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Randomized seed for squares spawning
 
@@ -72,7 +90,7 @@ int main(void)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, windowWidth, windowHeight, 0.0, -1.0, 1.0);
+    glOrtho(GL_ORTHO::left, GL_ORTHO::right, GL_ORTHO::bottom, GL_ORTHO::top, GL_ORTHO::zNear, GL_ORTHO::zFar);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -105,9 +123,8 @@ int main(void)
 
                     Music.setBuffer(SoundBuffer);
 
-                    // Remove file extension from Song Name
-                    SongName = filePathName.substr(filePath.length() + 1);
-                    SongName.resize(SongName.length() - 4);
+                    SongName = filePathName.substr(filePath.length() + 1); // Extract Just File Name
+                    SongName.resize(SongName.length() - fileExtensionLength);
 
                     sampleRate = SoundBuffer.getSampleRate();
                     channelCount = SoundBuffer.getChannelCount();
@@ -126,7 +143,7 @@ int main(void)
             ImGuiFileDialog::Instance()->Close();
         }
 
-        ImGui::SliderInt("Amplitude Threshold", &amplitudeThreshold, 0, 41000);
+        ImGui::SliderInt("Amplitude Threshold", &amplitudeThreshold, minAmplitudeThreshold, maxAmplitudeThreshold);
 
         ImGui::Text("Current Song: %s", SongName.c_str());
         ImGui::Text("Amplitude Threshold: %d", amplitudeThreshold);
@@ -144,39 +161,31 @@ int main(void)
         for (size_t i = prevSampleIndex; i < sampleIndex; ++i) {
             int16_t amplitude = AudioSamples[i];
 
-            if (amplitude > 0) {
-                positiveSampleCount++;
-            }
-            else if (amplitude < 0) {
-                negativeSampleCount++;
-            }
-
             if (amplitude > amplitudeThreshold || amplitude < -amplitudeThreshold) {
-                float x = static_cast<float>(std::rand() % (windowWidth - 50));
-                float y = static_cast<float>(std::rand() % (windowHeight - 50));
+                float x = static_cast<float>(std::rand() % (windowWidth - squareRandomPosOffset));
+                float y = static_cast<float>(std::rand() % (windowHeight - squareRandomPosOffset));
 
                 Square sq;
                 sq.position = glm::vec2(x, y);
                 sq.transparency = 1.0f;
                 if (abs(amplitude) < amplitudeThreshold * 1.02f) {
-                    sq.color = glm::vec3(0.0f, 0.0f, 1.0f); // Blue
+                    sq.color = GL_COLORS::Blue;
                 }
                 else if (abs(amplitude) < amplitudeThreshold * 1.04f) {
-                    sq.color = glm::vec3(0.0f, 1.0f, 0.0f); // Green
+                    sq.color = GL_COLORS::Green;
                 }
                 else if (abs(amplitude) < amplitudeThreshold * 1.06f) {
-                    sq.color = glm::vec3(1.0f, 1.0f, 0.0f); // Yellow
+                    sq.color = GL_COLORS::Yellow;
                 }
                 else if (abs(amplitude) < amplitudeThreshold * 1.08f) {
-                    sq.color = glm::vec3(1.0f, 0.5f, 0.0f); // Orange
+                    sq.color = GL_COLORS::Orange;
                 }
                 else {
-                    sq.color = glm::vec3(1.0f, 0.0f, 0.0f); // Red
+                    sq.color = GL_COLORS::Red;
                 }
 
 
                 Squares.push_back(sq);
-                std::cout << "Created Square: x=" << x << ", y=" << y << std::endl;
             }
         }
 

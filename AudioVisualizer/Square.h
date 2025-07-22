@@ -6,11 +6,11 @@
 
 class Square {
 public:
-	glm::vec2 position;
-	glm::vec3 color;
+	glm::vec2 position = glm::vec3(0.0, 0.0, 0.0);
+	glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 
-	float size = 10.0f;
-	float transparency = 1.0f;
+	float size{ 15.0f };
+	float transparency{ 1.0f };
 
 	void setTransparency(float newTransparency) { transparency = newTransparency; }
 	void update(float deltaTime);
