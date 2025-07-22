@@ -9,28 +9,26 @@
 
 OpenGL Audio Visualizer, a real-time audio visualization tool built using C++, OpenGL, SFML and ImGui. It analyzes audio amplitude data and generates colorful visual squares that react dynamically to sound input.
 
-This project was designed as a way for me to get to learn more about C++ libraries, and audio sampling
+This project was designed as a way for me to get to learn more about C++ libraries and audio sampling.
 
 ---
 
 ## NOTE
-- Works best with 44100hz Quality Audio
+- Works best with 44100hz quality audio
 
 ## Features
 
 - Dynamic square creation with color coding based on amplitude intensity
 - Uses OpenGL for high-performance rendering
 - Configurable amplitude thresholds
-- Allows WAV Audio file uploading
+- Allows WAV audio file uploading
 
 ---
 
 ## Screenshots
 
-# Visualizer
+### Visualizer
 <img width="667" height="510" alt="image" align="center" src="https://github.com/user-attachments/assets/6924191e-94d3-4e93-892d-9fe1e2b172aa" />
 
-#Choose File Menu Using ImGuiFileDialog
+### Choose File Menu Using ImGuiFileDialog
 <img width="670" height="518" alt="image" align="center" src="https://github.com/user-attachments/assets/f476c187-9186-4ce3-8878-7123940bffc1" />
-
----
