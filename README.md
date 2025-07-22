@@ -7,41 +7,30 @@
 
 ## Overview
 
-OpenGL Audio Visualizer is a real-time audio visualization tool built using C++, OpenGL, and SFML. It analyzes audio amplitude data and generates colorful visual effects (like squares) that react dynamically to sound input.
+OpenGL Audio Visualizer, a real-time audio visualization tool built using C++, OpenGL, SFML and ImGui. It analyzes audio amplitude data and generates colorful visual squares that react dynamically to sound input.
 
-This project is designed as a learning and experimentation platform for graphics programming, audio processing, and interactive visualization.
+This project was designed as a way for me to get to learn more about C++ libraries, and audio sampling
 
 ---
 
+## NOTE
+- Works best with 44100hz Quality Audio
+
 ## Features
 
-- Real-time audio amplitude sampling using SFML
 - Dynamic square creation with color coding based on amplitude intensity
 - Uses OpenGL for high-performance rendering
-- Configurable amplitude thresholds and visual parameters
-- Cross-platform compatibility (tested on Windows with Visual Studio 2022)
+- Configurable amplitude thresholds
+- Allows WAV Audio file uploading
 
 ---
 
 ## Screenshots
 
-*(Add some screenshots or GIFs here to show the visualizer in action)*
+# Visualizer
+<img width="667" height="510" alt="image" src="https://github.com/user-attachments/assets/6924191e-94d3-4e93-892d-9fe1e2b172aa" />
+
+#Choose File Menu Using ImGuiFileDialog
+<img width="670" height="518" alt="image" src="https://github.com/user-attachments/assets/f476c187-9186-4ce3-8878-7123940bffc1" />
 
 ---
-
-## Installation & Setup
-
-### Prerequisites
-
-- Windows 10/11
-- Visual Studio 2022 with Desktop Development with C++ workload
-- Git (for cloning the repo)
-- [SFML](https://www.sfml-dev.org/) installed and linked in your project
-- [GLFW](https://www.glfw.org/) (if applicable)
-- OpenGL development libraries (usually included with Windows SDK)
-
-### Cloning the Repo
-
-```bash
-git clone https://github.com/cadenmbond/OpenGL-Audio-Visualizer.git
-cd OpenGL-Audio-Visualizer
