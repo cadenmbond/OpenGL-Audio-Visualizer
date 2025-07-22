@@ -1,6 +1,6 @@
 # OpenGL Audio Visualizer
 
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-apache-green)
 ![C++](https://img.shields.io/badge/language-C++-blue)
 ![OpenGL](https://img.shields.io/badge/graphics-OpenGL-orange)
 ![SFML](https://img.shields.io/badge/audio-SFML-lightgrey)
