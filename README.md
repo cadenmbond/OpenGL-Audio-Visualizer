@@ -28,9 +28,9 @@ This project was designed as a way for me to get to learn more about C++ librari
 ## Screenshots
 
 # Visualizer
-<img width="667" height="510" alt="image" src="https://github.com/user-attachments/assets/6924191e-94d3-4e93-892d-9fe1e2b172aa" />
+<img width="667" height="510" alt="image" align="center" src="https://github.com/user-attachments/assets/6924191e-94d3-4e93-892d-9fe1e2b172aa" />
 
 #Choose File Menu Using ImGuiFileDialog
-<img width="670" height="518" alt="image" src="https://github.com/user-attachments/assets/f476c187-9186-4ce3-8878-7123940bffc1" />
+<img width="670" height="518" alt="image" align="center" src="https://github.com/user-attachments/assets/f476c187-9186-4ce3-8878-7123940bffc1" />
 
 ---
