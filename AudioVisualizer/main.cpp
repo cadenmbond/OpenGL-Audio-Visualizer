@@ -67,11 +67,10 @@ int main(void)
 
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Randomized seed for squares spawning
 
-    /* Initialize the library */
+    // Initialize the library 
     if (!glfwInit())
         return -1;
 
-    /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(windowWidth, windowHeight, "Music Visualizer", NULL, NULL);
     if (!window)
     {
@@ -79,7 +78,6 @@ int main(void)
         return -1;
     }
 
-    /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
     IMGUI_CHECKVERSION();
@@ -94,10 +92,9 @@ int main(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    /* Loop until the user closes the window */
+    // Render Loop
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -114,7 +111,7 @@ int main(void)
         }
 
         if (ImGuiFileDialog::Instance()->Display("ChooseFileDlgKey")) {
-            if (ImGuiFileDialog::Instance()->IsOk()) { // action if OK
+            if (ImGuiFileDialog::Instance()->IsOk()) { // Check if file is valid
                 std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
                 std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
 
@@ -161,6 +158,8 @@ int main(void)
         for (size_t i = prevSampleIndex; i < sampleIndex; ++i) {
             int16_t amplitude = AudioSamples[i];
 
+
+            // Randomize position and color based on amplitude data
             if (amplitude > amplitudeThreshold || amplitude < -amplitudeThreshold) {
                 float x = static_cast<float>(std::rand() % (windowWidth - squareRandomPosOffset));
                 float y = static_cast<float>(std::rand() % (windowHeight - squareRandomPosOffset));
@@ -208,10 +207,8 @@ int main(void)
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
-        /* Poll for and process events */
         glfwPollEvents();
     }
 
