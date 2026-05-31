@@ -32,8 +32,3 @@ This project was designed as a way for me to get to learn more about C++ librari
 
 ### Choose File Menu Using ImGuiFileDialog
 <img width="670" height="518" alt="image" align="center" src="https://github.com/user-attachments/assets/f476c187-9186-4ce3-8878-7123940bffc1" />
-
-### Demo
-
-Visualizer running with **"A Trophy Father's Trophy Son"** by *Sleeping With Sirens*  
-[![Visualizer Demo](https://img.youtube.com/vi/Owa3T26531w/0.jpg)](https://youtu.be/Owa3T26531w)
