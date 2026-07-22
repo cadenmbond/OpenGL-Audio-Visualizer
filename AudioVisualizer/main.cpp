@@ -43,6 +43,7 @@ struct GL_COLORS {
     static constexpr glm::vec3 Green{ 0.0f, 1.0f, 0.0f };
 };
 
+// coordinates for orthographic projection
 struct GL_ORTHO {
     static constexpr GLdouble left{ 0.0 };
     static constexpr GLdouble right{ windowWidth };
@@ -67,7 +68,6 @@ int main(void)
 
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Randomized seed for squares spawning
 
-    // Initialize the library 
     if (!glfwInit())
         return -1;
 
@@ -92,7 +92,6 @@ int main(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Render Loop
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -122,11 +121,10 @@ int main(void)
 
                     SongName = filePathName.substr(filePath.length() + 1); // Extract Just File Name
                     SongName.resize(SongName.length() - fileExtensionLength);
-
+                    
                     sampleRate = SoundBuffer.getSampleRate();
                     channelCount = SoundBuffer.getChannelCount();
 
-                    // Clear old squares when loading a new song
                     Squares.clear();
 
                     Music.play();
@@ -140,8 +138,9 @@ int main(void)
             ImGuiFileDialog::Instance()->Close();
         }
 
+        // Audio volume needed to spawn a square
         ImGui::SliderInt("Amplitude Threshold", &amplitudeThreshold, minAmplitudeThreshold, maxAmplitudeThreshold);
-
+        
         ImGui::Text("Current Song: %s", SongName.c_str());
         ImGui::Text("Amplitude Threshold: %d", amplitudeThreshold);
 
